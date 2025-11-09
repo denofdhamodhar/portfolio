@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dhamodhar - Frontend Developer Portfolio</title>
+    <link rel="shortcut icon" href="./images/cowboy.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes gradient {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Smooth transitions */
+      * {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Dark mode styles */
+      :root {
+        --bg-primary: #f9fafb;
+        --bg-secondary: #ffffff;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --accent: #3b82f6;
+      }
+
+      .dark {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+      }
+
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <!-- Dark/Light Mode Toggle -->
+    <button
+      id="themeToggle"
+      class="hidden fixed top-6 right-6 z-50 p-3 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 transition-all duration-300 group"
+    >
+      <svg
+        class="w-6 h-6 text-gray-800 dark:text-yellow-300 transition-transform group-hover:rotate-12"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          class="sun-icon"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+        ></path>
+      </svg>
+    </button>
+
+    <!-- Sticky Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-slate-700 transform -translate-y-full transition-transform duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a
+            href="#hero"
+            class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            >Dhamodhar</a
+          >
+
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#about"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="#skills"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Skills</a
+            >
+            <a
+              href="#education"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Education</a
+            >
+            <a
+              href="#projects"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Projects</a
+            >
+            <a
+              href="#certifications"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Certifications</a
+            >
+            <a
+              href="#contact"
+              class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700"
+      >
+        <div class="px-4 py-4 space-y-3">
+          <a
+            href="#about"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >About</a
+          >
+          <a
+            href="#skills"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >Skills</a
+          >
+          <a
+            href="#education"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >Education</a
+          >
+          <a
+            href="#projects"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >Projects</a
+          >
+          <a
+            href="#certifications"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >Certifications</a
+          >
+          <a
+            href="#contact"
+            class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="hero"
+      class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900"
+    >
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-3xl animate-float"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/20 rounded-full blur-3xl animate-float"
+          style="animation-delay: 1s"
+        ></div>
+      </div>
+
+      <div
+        class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+      >
+        <div class="fade-in">
+          <h1
+            class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent animate-gradient pb-2"
+          >
+            Dhamodhar
+          </h1>
+          <p
+            class="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700 dark:text-gray-300 mb-6"
+          >
+            Frontend Developer
+          </p>
+          <p
+            class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12"
+          >
+            Crafting beautiful, responsive web experiences with React,
+            JavaScript &amp; modern web technologies
+          </p>
+
+          <!-- Social Links -->
+          <div class="flex justify-center gap-4 mb-16">
+            <a
+              href="mailto:dhamodhar459@gmail.com"
+              target="_blank"
+              class="group p-4 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-lg border border-gray-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <svg
+                class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-red-500 transition-colors"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/dhamodharg/"
+              target="_blank"
+              class="group p-4 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-lg border border-gray-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <svg
+                class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 transition-colors"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/dmr565"
+              target="_blank"
+              class="group p-4 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-lg border border-gray-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <svg
+                class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Scroll Indicator -->
+          <a href="#about" class="inline-block animate-bounce">
+            <svg
+              class="w-6 h-6 text-gray-500 dark:text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in">
+          <h2
+            class="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            About Me
+          </h2>
+          <div>
+            <div
+              class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-800/50 rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              <p
+                class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed"
+              >
+                Frontend Developer with hands-on experience in building
+                responsive and user-friendly web applications. Skilled in
+                ReactJS, JavaScript, HTML, CSS, Bootstrap, and basic SEO.
+                Proficient in Redux for state management, API integration using
+                Axios, and handling JWT-based authentication. Experienced in
+                form validations, dynamic routing, and file uploads. Focused on
+                writing clean, maintainable code and solving issues efficiently.
+              </p>
+              <div class="flex justify-end mt-10 block sm:hidden">
+                <img class="w-80" src="./images/summarysec1.png" alt="Work" />
+              </div>
+              <div class="justify-end relative hidden sm:flex mb-4 sm:mt-6">
+                <img
+                  class="w-96 absolute"
+                  src="./images/summarysec1.png"
+                  alt="Work"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section - Bento Grid -->
+    <section id="skills" class="sm:mt-10 py-20 bg-gray-50 dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in">
+          <h2
+            class="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            Skills
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Programming -->
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 group"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
+              >
+                Programming
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                  >Python</span
+                >
+              </div>
+            </div>
+
+            <!-- ML & DL -->
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-xl transition-all duration-300 group"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
+              >
+                ML &amp; DL
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium"
+                  >Machine Learning</span
+                >
+                <span
+                  class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium"
+                  >Deep Learning</span
+                >
+              </div>
+            </div>
+
+            <!-- Web Development -->
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-teal-500 dark:hover:border-teal-500 hover:shadow-xl transition-all duration-300 group md:col-span-2 lg:col-span-1"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
+              >
+                Web Development
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >React JS</span
+                >
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >HTML</span
+                >
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >CSS</span
+                >
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >JavaScript</span
+                >
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >Bootstrap</span
+                >
+                <span
+                  class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                  >Tailwind CSS</span
+                >
+              </div>
+            </div>
+
+            <!-- Tools & Platforms -->
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-pink-500 dark:hover:border-pink-500 hover:shadow-xl transition-all duration-300 group md:col-span-2 lg:col-span-3"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                  ></path>
+                </svg>
+              </div>
+              <h3
+                class="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
+              >
+                Tools &amp; Platforms
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm font-medium"
+                  >Git</span
+                >
+                <span
+                  class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm font-medium"
+                  >Github</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section - Bento Grid -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in">
+          <h2
+            class="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            Projects
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Project 1 -->
+            <div
+              class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 group"
+            >
+              <div class="my-4">
+                <img
+                  class="rounded-2xl shadow-white"
+                  src="./images/farmer.jpg"
+                  alt="Farmer's crop welfare system"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Farmer's crop welfare system using ML and DL
+              </h3>
+              <span
+                class="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium mb-3"
+                >Python</span
+              >
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Developed a predictive model for crop yield, disease detection
+                using image recognition, and fertilizer recommendation. Improved
+                accuracy of predictions and supported sustainable farming
+                practices.
+              </p>
+              <a
+                href="https://drive.google.com/drive/folders/1oYWbBWmii0jOciXKMrsiTAKfJ4AfHFFz"
+                class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium group/link"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Project 2 -->
+            <div
+              class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-xl transition-all duration-300 group"
+            >
+              <div class="my-4">
+                <img
+                  class="rounded-2xl shadow-white"
+                  src="./images/task.png"
+                  alt="User Habit Tracker app"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                User Habit Tracker app
+              </h3>
+              <span
+                class="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium mb-3"
+                >React Js</span
+              >
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Developed a React-based habit tracker web application that helps
+                users manage daily tasks. The app automatically repeats
+                incomplete tasks on the next day, stores previous day data using
+                local storage, and tracks user streaks when all tasks are
+                completed.
+              </p>
+              <a
+                href="https://habit-tracker-gdmr.vercel.app/"
+                class="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium group/link"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Project 3 -->
+            <div
+              class="lg:col-span-3 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 hover:border-teal-500 dark:hover:border-teal-500 hover:shadow-xl transition-all duration-300 group"
+            >
+              <div class="my-4">
+                <img
+                  class="rounded-2xl shadow-white"
+                  src="./images/school.png"
+                  alt="Sri Krishna High School"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Sri Krishna High School
+              </h3>
+              <span
+                class="inline-block px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium mb-3"
+                >Html, Tailwind CSS and JS</span
+              >
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Developed a responsive school website for Sri Krishna High
+                School with a modern design that adapts across devices.
+                Integrated a dynamic form linked to Google Sheets for real-time
+                data collection and management, improving accessibility and ease
+                of use for staff and students.
+              </p>
+              <a
+                href="https://skhs.vercel.app/"
+                class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium group/link"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="py-8 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800"
+    >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-600 dark:text-gray-400">
+          &copy; 2025 Dhamodhar. Made with tailwindcss❤️
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const html = document.documentElement;
+
+      themeToggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+      });
+
+      // Sticky Navigation
+      const navbar = document.getElementById("navbar");
+      let lastScroll = 0;
+
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 300) {
+          navbar.style.transform = "translateY(0)";
+        } else {
+          navbar.style.transform = "translateY(-100%)";
+        }
+
+        lastScroll = currentScroll;
+      });
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Close mobile menu when clicking a link
+      const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+
+      // Intersection Observer for Fade-in Animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
